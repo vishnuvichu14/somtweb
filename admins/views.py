@@ -35,3 +35,12 @@ def transaction_detail_page(request):
 @login_required
 def order_detail_page(request):
     return render(request, 'admins/orders_details_page.html')
+
+
+@login_required
+def notification_page(request):
+    return render(request, 'admins/notification_page.html')
+
+@login_required
+def send_message_page(request):
+    return render(request, 'admins/send_message_page.html')

@@ -1,0 +1,8 @@
+.idea
+db.sqlide3
+*.pyc
+*.ini
+*.log
+*.pid
+/static
+.vagrant/

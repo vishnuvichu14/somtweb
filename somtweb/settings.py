@@ -23,6 +23,7 @@ SECRET_KEY = 'sqt+8mp!1_!!rt_9qbe+77t08#5#8^rf+oq_gr&*za!egnpj_7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+IS_PRODUCTION = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -115,8 +116,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home_page'
+
+PAYU_INFO = {
+    'merchant_key': "gtKFFx",
+    'merchant_salt': "eCwWELxi",
+    'payment_url': 'https://test.payu.in/_payment',
+    'authorization': 'EBLRslXs/+3cUaKuDz7IyZoT2K17aJ8r4kpR0u2aMjo=',
+}
+
+PAYU_MERCHANT_KEY = "YqlMw3"
+PAYU_MERCHANT_SALT = "gWfY7Kww"

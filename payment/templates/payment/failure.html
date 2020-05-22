@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #nav {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #A5C339;
+        }
+
+        body {
+
+        }
+
+        a {
+            font-size: 29px;
+        }
+
+        input {
+            font-size: 29px;
+        }
+
+        button {
+            font-family: "Times New Roman";
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+    <script>
+
+        function func1() {
+            if (typeof PayUMoney !== 'undefined') {
+                PayUMoney.failure(1, '');
+            }
+        }
+
+        function func2() {
+            if (typeof PayU !== 'undefined') {
+                PayU.onFailure('');
+            }
+        }
+
+        function start() {
+            func1();
+            func2();
+        }
+
+    </script>
+</head>
+<body onload="start()">
+<div>
+    <div align="center">
+        <h2>Sorry your transaction was failed</h2>
+        <button id="clickme"><a href="{% url 'landing_page' %}" style="text-decoration:none">PROCEED</a></button>
+    </div>
+</div>
+</body>
+</html>

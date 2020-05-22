@@ -15,13 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-from web.views import login_page,logout_user
+from django.conf.urls.static import static
+from somtweb import settings
+from web.views import login_page, logout_user
 
 urlpatterns = [
     path('', include('web.urls')),
-    path('admin/',include('admins.urls')),
-    path('login/',login_page,name="login"),
-    path('logout/',logout_user,name="logout"),
+    path('payment/', include('payment.urls')),
+    path('admin/', include('admins.urls')),
+    path('login/', login_page, name="login"),
+    path('logout/', logout_user, name="logout"),
     path('cb5e100e5a9a3e7f6d1fd97512215282/', admin.site.urls),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -28,7 +28,7 @@ class Farm(models.Model):
         return string + str(self.pin_code)
 
     def get_total_number_of_cows(self):
-        return Count(Cow.objects.filter(farm_id=self.id))
+        return Cow.objects.filter(farm_id=self.id).count()
 
     def get_total_number_of_worker(self):
         pass

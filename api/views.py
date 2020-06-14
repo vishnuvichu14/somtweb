@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
+from api.forms import UserRegistrationForm
 from web.models import Profile
 
 
@@ -34,3 +35,15 @@ class ApiLogin(APIView):
             user = request.user
             return Response(
                 {'email': user.username, 'name': user.first_name, 'status': 'success'})
+
+
+class ApiRegistration(APIView):
+    def post(self, request):
+        print("SignUp :",request.POST)
+        user_registration_form = UserRegistrationForm(request.data, request=request)
+        if user_registration_form.is_valid():
+            token = user_registration_form.save()
+            return Response(
+                {'status': 'success', 'message': 'User registered successfully!', "token": token.key})
+        else:
+            return Response({'status': 'error', 'errors': user_registration_form.errors})

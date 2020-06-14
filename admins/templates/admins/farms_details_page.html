@@ -3,11 +3,58 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Farms details page</h1>
+            <div class="card">
+                <div class="card-header border-0">
+                    <h3 class="card-title">Manage Farm</h3>
+                    <div class="card-tools">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="text" name="farm_name" placeholder="Farm Name"
+                                       class="form-control">
+                                <span class="input-group-append">
+                                   <button type="submit" class="btn btn-tool btn-sm">
+                                        <i style="color: greenyellow;" class="fas fa-plus"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
                     </div>
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-striped table-valign-middle">
+                        <thead>
+                        <tr>
+                            <th>Farm Name</th>
+                            <th>Address</th>
+                            <th>Pin Code</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>Total Cows</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for farm in all_farms %}
+                            <tr>
+                                <td>{{ farm.name }}</td>
+                                <td>{{ farm.address }}</td>
+                                <td>{{ farm.pin_code }}</td>
+                                <td>{{ farm.latitude }}</td>
+                                <td>{{ farm.longitude }}</td>
+                                <td>{{ farm.get_total_number_of_cows }}</td>
+                                <td>
+                                    <a href="{% url 'edit_farm_page' 'edit' farm.id %}" class="text-muted">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{% url 'edit_farm_page' 'delete' farm.id %}" class="text-muted">
+                                        <i style="color: red;" class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

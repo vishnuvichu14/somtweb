@@ -1,7 +1,16 @@
 from django.db import models
 from datetime import date
+from django.contrib.auth.models import User
 
 from django.db.models import Sum, Count
+
+
+class Profile(User):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile',parent_link=True)
+    phone = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.username
 
 
 class Farm(models.Model):
@@ -19,7 +28,7 @@ class Farm(models.Model):
         return string + str(self.pin_code)
 
     def get_total_number_of_cows(self):
-        return Count(Cow.objects.filter(farm_id=self.id))
+        return Cow.objects.filter(farm_id=self.id).count()
 
     def get_total_number_of_worker(self):
         pass
@@ -29,9 +38,9 @@ class Cow(models.Model):
     name = models.CharField(max_length=1024)
     tag = models.CharField(max_length=1024)
     date_of_birth = models.DateTimeField(null=False)
-    breed = models.ForeignKey('Breed', on_delete=models.CASCADE, related_name="breed")
+    breed = models.ForeignKey('Breed', on_delete=models.CASCADE, related_name="cow_breed")
     create_at = models.DateTimeField(auto_now=True)
-    farm = models.ForeignKey('Farm', on_delete=models.CASCADE, related_name="farm")
+    farm = models.ForeignKey('Farm', on_delete=models.CASCADE, related_name="cow_farm")
     default_quantity = models.CharField(max_length=1024, null=True)
     photo = models.ImageField(upload_to='cow_photo/', null=True, blank=True)
     qr_code = models.ImageField(upload_to='qr_code/', null=True, blank=True)
@@ -78,8 +87,8 @@ class Milk(models.Model):
 
 
 class Worker(models.Model):
-    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name="user")  # which user is worker
-    farm = models.ForeignKey('Farm', on_delete=models.CASCADE, related_name="farm")  # belong to which farm
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="worker_user")  # which user is worker
+    farm = models.ForeignKey('Farm', on_delete=models.CASCADE, related_name="worker_farm")  # belong to which farm
 
     def __str__(self):
         return self.user.username + " " + self.farm.pin_code

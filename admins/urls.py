@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import dashboard_page, cows_detail_page, farms_detail_page, customers_detail_page, carriers_detail_page, \
-    transaction_detail_page, order_detail_page, send_message_page, notification_page
+    transaction_detail_page, order_detail_page, send_message_page, notification_page,edit_farm_page
 
 urlpatterns = [
     path("", dashboard_page, name="dashboard_page"),
@@ -13,4 +13,8 @@ urlpatterns = [
     path("order_details", order_detail_page, name="orders_details_page"),
     path("send_message", send_message_page, name="send_message_page"),
     path("notification", notification_page, name="notification_page"),
+
+    path("edit_farm/<type>/<id>", edit_farm_page, name="edit_farm_page"),
+
+
 ]

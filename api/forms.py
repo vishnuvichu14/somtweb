@@ -10,7 +10,7 @@ class UserRegistrationForm(forms.Form):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
 
     email = forms.EmailField(required=True)
-    password1 = forms.CharField(widget=forms.PasswordInput(), required=True)
+    password = forms.CharField(widget=forms.PasswordInput(), required=True)
     password2 = forms.CharField(widget=forms.PasswordInput(), required=True)
     name = forms.CharField(max_length=100, required=True)
     # phone = forms.IntegerField()

@@ -49,7 +49,7 @@ def transaction_detail_page(request):
 
 @login_required
 @user_passes_test(lambda user: user.groups.filter(name='Admin').exists())
-def order_detail_page(request):
+def order_detail_page(request): 
     return render(request, 'admins/orders_details_page.html')
 
 

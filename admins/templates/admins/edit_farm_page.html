@@ -9,12 +9,67 @@
                     <div class="input-group">
                         <input type="text" name="farm_name" placeholder="Farm Name" value="{{ farm.name }}"
                                class="form-control">
+                        <input type="text" name="farm_address" placeholder="Farm Address" value="{{ farm.address }}"
+                               class="form-control">
+                        <input type="text" name="farm_pincode" placeholder="Pincode" value="{{ farm.pin_code }}"
+                               class="form-control">
+                        <input type="text" name="farm_latitude" placeholder="Latitude" value="{{ farm.latitude }}"
+                               class="form-control">
+                        <input type="text" name="farm_longitude" placeholder="Longitude" value="{{ farm.longitude }}"
+                               class="form-control">
+                        <input type="text" name="farm_totalcows" placeholder="Total Cows" value="{{ farm.get_total_number_of_cows }}"
+                               class="form-control">
                         <span class="input-group-append">
                                <button type="submit" class="btn btn-tool btn-sm">
                                     <i style="color: yellow;" class="fas fa-save"></i>
                                 </button>
                         </span>
                     </div>
+                    <!-- <div class="input-group">
+                        <input type="text" name="farm_address" placeholder="Farm Address" value="{{ farm.address }}"
+                               class="form-control">
+                        <span class="input-group-append">
+                               <button type="submit" class="btn btn-tool btn-sm">
+                                    <i style="color: yellow;" class="fas fa-save"></i>
+                                </button>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" name="farm_pincode" placeholder="Pincode" value="{{ farm.pin_code }}"
+                               class="form-control">
+                        <span class="input-group-append">
+                               <button type="submit" class="btn btn-tool btn-sm">
+                                    <i style="color: yellow;" class="fas fa-save"></i>
+                                </button>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" name="farm_latitude" placeholder="Latitude" value="{{ farm.latitude }}"
+                               class="form-control">
+                        <span class="input-group-append">
+                               <button type="submit" class="btn btn-tool btn-sm">
+                                    <i style="color: yellow;" class="fas fa-save"></i>
+                                </button>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" name="farm_longitude " placeholder="Longitude" value="{{ farm.longitude }}"
+                               class="form-control">
+                        <span class="input-group-append">
+                               <button type="submit" class="btn btn-tool btn-sm">
+                                    <i style="color: yellow;" class="fas fa-save"></i>
+                                </button>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" name="farm_totalcows" placeholder="Total Cows" value="{{ farm.get_total_number_of_cows }}"
+                               class="form-control">
+                        <span class="input-group-append">
+                               <button type="submit" class="btn btn-tool btn-sm">
+                                    <i style="color: yellow;" class="fas fa-save"></i>
+                                </button>
+                        </span>
+                    </div> -->
                 </form>
             </div>
         </div>

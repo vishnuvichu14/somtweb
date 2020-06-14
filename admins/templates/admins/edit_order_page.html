@@ -1,0 +1,38 @@
+{% extends 'admins/base.html' %}
+{% block content %}
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container">
+                <h2>Edit Order</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" name="order_farm" placeholder="Farm Name" value="{{ order.farm }}"
+                               class="form-control">
+                        <input type="text" name="order_cow" placeholder="Farm Address" value="{{ order.cow }}"
+                               class="form-control">
+                        <input type="text" name="order_customer" placeholder="Pincode" value="{{ order.customer }}"
+                               class="form-control">
+                        <input type="text" name="order_order_number" placeholder="Latitude" value="{{ order.order_number }}"
+                               class="form-control">
+                        <input type="text" name="order_quantity" placeholder="Longitude" value="{{ order.quantity }}"
+                               class="form-control">
+                        <input type="text" name="order_amount" placeholder="Total Cows" value="{{ order.amount }}"
+                               class="form-control">
+                               <input type="text" name="order_is_paid" placeholder="Total Cows" value="{{ order.is_paid }}"
+                               class="form-control">
+                               <input type="text" name="order_start_date" placeholder="Total Cows" value="{{ order.start_date }}"
+                               class="form-control">
+                               <input type="text" name="order_end_date" placeholder="Total Cows" value="{{ order.end_date }}"
+                               class="form-control">
+                        <span class="input-group-append">
+                               <button type="submit" class="btn btn-tool btn-sm">
+                                    <i style="color: yellow;" class="fas fa-save"></i>
+                                </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

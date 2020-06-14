@@ -1,0 +1,36 @@
+{% extends 'admins/base.html' %}
+{% block content %}
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container">
+                <h2>Edit Farm</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" name="cow_name" placeholder="Cow Name" value="{{ cow.name }}"
+                               class="form-control">
+                        <input type="text" name="cow_tag" placeholder="Tag" value="{{ cow.tag }}"
+                               class="form-control">
+                        <!-- <input type="text" name="cow_dob" placeholder="DOB" value="{{ cow.get_age }}"
+                               class="form-control"> -->
+                        <input type="text" name="cow_breed" placeholder="Breed" value="{{ cow.breed }}"
+                               class="form-control">
+                        <input type="text" name="cow_farm" placeholder="Farm" value="{{ cow.farm }}"
+                               class="form-control">
+                        <input type="text" name="cow_quantity" placeholder="Quantity" value="{{ cow.default_quantity }}"
+                               class="form-control">
+                               <input type="text" name="cow_image" placeholder="Image" value="{{ cow.photo }}"
+                               class="form-control">
+                               <input type="text" name="cow_qr" placeholder="QR" value="{{ cow.qr_code }}"
+                               class="form-control">
+                        <span class="input-group-append">
+                               <button type="submit" class="btn btn-tool btn-sm">
+                                    <i style="color: yellow;" class="fas fa-save"></i>
+                                </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

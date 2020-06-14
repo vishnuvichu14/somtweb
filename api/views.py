@@ -10,7 +10,6 @@ from web.models import Profile
 
 
 class ApiLogin(APIView):
-
     def post(self, request):
         data = request.data
         email = data['email']
@@ -19,9 +18,8 @@ class ApiLogin(APIView):
             user = User.objects.get(email=email)
             if user.check_password(password):
                 token = Token.objects.get(user=user)
-                profile = Profile.objects.get(user=user)
-                return Response({'user_id': user.id, 'email': user.email, 'status': 'success', 'token': token.key,
-                                 'phone': profile.phone},
+                # profile = Profile.objects.get(user=user)
+                return Response({'user_id': user.id, 'email': user.email, 'status': 'success', 'token': token.key},
                                 status=400)
             else:
                 return Response({'status': 'error', 'message': 'Incorrect Password'}, status=400)
@@ -39,7 +37,7 @@ class ApiLogin(APIView):
 
 class ApiRegistration(APIView):
     def post(self, request):
-        print("SignUp :",request.POST)
+        print("SignUp :", request.POST)
         user_registration_form = UserRegistrationForm(request.data, request=request)
         if user_registration_form.is_valid():
             token = user_registration_form.save()

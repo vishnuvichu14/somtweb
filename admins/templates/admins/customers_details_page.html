@@ -3,11 +3,71 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Customers details page</h1>
+            <div class="card">
+                <div class="card-header border-0">
+                    <h3 class="card-title">Manage Customer</h3>
+                    <div class="card-tools">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                    <input type="text" name="customer_order" placeholder="Customer Order"
+                                           class="form-control">
+                                           <input type="text" name="customer_customerr" placeholder="customer" 
+                               class="form-control">
+                        <input type="text" name="customer_worker" placeholder="worker" 
+                               class="form-control">
+                        <input type="text" name="customer_quantity" placeholder="quantity" 
+                               class="form-control">
+                        <input type="text" name="customer_status" placeholder="status" 
+                               class="form-control">
+                        <input type="text" name="customer_message" placeholder="Message" 
+                               class="form-control">
+                               <input type="text" name="customer_delivery" placeholder="Delivered Time" 
+                               class="form-control">
+                                           <span class="input-group-append">
+                                            <button type="submit" class="btn btn-tool btn-sm">
+                                                 <i style="color: greenyellow;" class="fas fa-plus"></i>
+                                             </button>
+                                         </span>
+                            </div>
+                        </form>
                     </div>
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-striped table-valign-middle">
+                        <thead>
+                        <tr>
+                        <<th>Order</th>
+                        <th>Customer</th>
+                        <th>Worker</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Message</th>
+                        <th>Delivered Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for customer in all_customers %}
+                            <tr>
+                                <td>{{ customer.order}}</td>
+                                <td>{{ customer.customer }}</td>
+                                <td>{{ customer.worker }}</td>
+                                <td>{{ customer.quantity }}</td>
+                                <td>{{ customer.status }}</td>
+                                <td>{{ customer.message}}</td>
+                                <td>{{ customer.delivered_time }}</td>
+                                <td>
+                                    <a href="{% url 'edit_customer_page' 'edit' customer.id %}" class="text-muted">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{% url 'edit_customer_page' 'delete' customer.id %}" class="text-muted">
+                                        <i style="color: red;" class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

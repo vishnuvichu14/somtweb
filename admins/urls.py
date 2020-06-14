@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import dashboard_page, cows_detail_page, farms_detail_page, customers_detail_page, carriers_detail_page, \
-    transaction_detail_page, order_detail_page, send_message_page, notification_page,edit_farm_page,edit_cow_page,edit_order_page
+    transaction_detail_page, order_detail_page, send_message_page, notification_page,edit_farm_page,edit_cow_page,edit_order_page,edit_customer_page
 
 urlpatterns = [
     path("", dashboard_page, name="dashboard_page"),
@@ -16,7 +16,8 @@ urlpatterns = [
 
     path("edit_farm/<type>/<id>", edit_farm_page, name="edit_farm_page"),
     path("edit_cow/<type>/<id>", edit_cow_page, name="edit_cow_page"),
-    path("edit_cow/<type>/<id>", edit_order_page, name="edit_order_page"),
+    path("edit_order/<type>/<id>", edit_order_page, name="edit_order_page"),
+    path("edit_customer/<type>/<id>", edit_customer_page, name="edit_customer_page"),
 
 
 ]

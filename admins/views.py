@@ -50,8 +50,14 @@ def cows_detail_page(request):
 @login_required
 @user_passes_test(lambda user: user.groups.filter(name='Admin').exists())
 def customers_detail_page(request):
-    
-    return render(request, 'admins/customers_details_page.html')
+    all_customers = Delivery.objects.all()
+
+    if request.POST:
+        data = request.POST
+        customer_order = data["customer_order"]
+        Delivery.objects.create(name=customer_order)
+        # added other details too
+    return render(request, 'admins/customers_details_page.html',{'all_customers': all_customers})
 
 
 @login_required
@@ -209,3 +215,41 @@ def edit_order_page(request,type,id):
         # redirect to the details page
         return redirect('orders_details_page')
     return render(request, 'admins/edit_order_page.html', {'order': order})
+
+@login_required
+@user_passes_test(lambda user: user.groups.filter(name='Admin').exists())
+def edit_customer_page(request,type,id):
+    customer = Delivery.objects.get(id=id)
+    if type == "delete":
+        customer.delete()
+        return redirect('customers_details_page')
+    if request.POST:
+        # retrieve post data
+        data = request.POST
+        # get farm_name data
+        customer_order = data["customer_order"]
+        customer_customerr = data["customer_customerr"]
+        customer_worker = data["customer_worker"]
+        customer_quantity = data["customer_quantity"]
+        customer_message = data["customer_message"]
+        customer_status = data["customer_status"]
+        customer_delivery = data["customer_delivery"]
+
+        # check if the data has change
+        if (customer.order != customer_order or customer.customer != customer_customerr or customer.worker != customer_worker or customer.quantity != customer_quantity or customer.status != customer_status or customer.message != customer_message or customer.delivered_time != customer_delivery) :
+            # if data has change then change the data
+            customer.order = customer_order
+            customer.customer = customer_customerr
+            customer.worker = customer_worker
+            customer.quantity = customer_quantity
+            customer.status = customer_status
+            customer.message = customer_message
+            customer.delivered_time = customer_delivery
+
+        # add other fields too eg. pin_code , latitude , .. etc HINT : Check web/models.py
+
+        # save changes
+        order.save()
+        # redirect to the details page
+        return redirect('customers_details_page')
+    return render(request, 'admins/edit_customers_page.html', {'customer': customer})

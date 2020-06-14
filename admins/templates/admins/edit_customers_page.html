@@ -1,0 +1,34 @@
+{% extends 'admins/base.html' %}
+{% block content %}
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container">
+                <h2>Edit Customer</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" name="customer_order" placeholder="Customer Order" value="{{ customer.order }}"
+                               class="form-control">
+                        <input type="text" name="customer_customerr" placeholder="customer" value="{{ customer.customer }}"
+                               class="form-control">
+                        <input type="text" name="customer_worker" placeholder="worker" value="{{ customer.worker }}"
+                               class="form-control">
+                        <input type="text" name="customer_quantity" placeholder="quantity" value="{{ customer.quantity }}"
+                               class="form-control">
+                        <input type="text" name="customer_status" placeholder="status" value="{{ customer.status }}"
+                               class="form-control">
+                        <input type="text" name="customer_message" placeholder="Message" value="{{ customer.message }}"
+                               class="form-control">
+                               <input type="text" name="customer_delivery" placeholder="Delivered Time" value="{{ customer.delivered_time }}"
+                               class="form-control">
+                        <span class="input-group-append">
+                               <button type="submit" class="btn btn-tool btn-sm">
+                                    <i style="color: yellow;" class="fas fa-save"></i>
+                                </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

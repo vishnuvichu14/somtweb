@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 
-from web.models import Farm,Cow
-from payment.models import Order,Delivery
+from web.models import Farm,Cow,Worker
+from payment.models import Order,Delivery,Transaction
 
 
 @login_required
@@ -25,11 +25,11 @@ def farms_detail_page(request):
         # farm_longitude = data["farm_longitude"] 
         # farm_totalcows = data["farm_totalcows"] 
         Farm.objects.create(name=farm_name)
-        # Farm.objects.create(name=farm_address)
-        # Farm.objects.create(name=farm_pincode)
-        # Farm.objects.create(name=farm_latitude)
-        # Farm.objects.create(name=farm_longitude)
-        # Farm.objects.create(name=farm_totalcows)
+        # Farm.objects.create(address=farm_address)
+        # Farm.objects.create(pin_code=farm_pincode)
+        # Farm.objects.create(latitude=farm_latitude)
+        # Farm.objects.create(longitude=farm_longitude)
+        # Farm.objects.create(get_total_number_of_cows=farm_totalcows)
         # added other details too
     return render(request, 'admins/farms_details_page.html', {'all_farms': all_farms})
 
@@ -42,7 +42,7 @@ def cows_detail_page(request):
     if request.POST:
         data = request.POST
         cow_name = data["cow_name"]
-        Cow.objects.create(name=cow_name)
+        Cow.objects.create(name = cow_name)
         # added other details too
     return render(request, 'admins/cows_details_page.html',{'all_cows': all_cows})
 
@@ -54,8 +54,8 @@ def customers_detail_page(request):
 
     if request.POST:
         data = request.POST
-        customer_order = data["customer_order"]
-        Delivery.objects.create(name=customer_order)
+        customer_quantity = data["customer_quantity"]
+        Delivery.objects.create(quantity=customer_quantity)
         # added other details too
     return render(request, 'admins/customers_details_page.html',{'all_customers': all_customers})
 
@@ -63,13 +63,27 @@ def customers_detail_page(request):
 @login_required
 @user_passes_test(lambda user: user.groups.filter(name='Admin').exists())
 def carriers_detail_page(request):
-    return render(request, 'admins/carriers_details_page.html')
+    all_carriers = Worker.objects.all()
+
+    if request.POST:
+        data = request.POST
+        carrier_user = data["carrier_user"]
+        Worker.objects.create(user=carrier_user)
+        # added other details too
+    return render(request, 'admins/carriers_details_page.html', {'all_carriers': all_carriers})
 
 
 @login_required
 @user_passes_test(lambda user: user.groups.filter(name='Admin').exists())
 def transaction_detail_page(request):
-    return render(request, 'admins/transaction_details_page.html')
+    all_transaction = Transaction.objects.all()
+
+    if request.POST:
+        data = request.POST
+        transaction_customer = data["transaction_customer"]
+        Transaction.objects.create(customer=transaction_customer)
+        # added other details too
+    return render(request, 'admins/transaction_details_page.html', {'all_transaction': all_transaction})
 
 
 @login_required
@@ -79,8 +93,8 @@ def order_detail_page(request):
 
     if request.POST:
         data = request.POST
-        order_farm = data["order_farm"]
-        Order.objects.create(name=order_farm)
+        order_order_number = data["order_order_number"] 
+        Order.objects.create(order_number = order_order_number)
         # added other details too
     return render(request, 'admins/orders_details_page.html', {'all_orders': all_orders})
 
@@ -186,7 +200,7 @@ def edit_order_page(request,type,id):
         data = request.POST
         # get farm_name data
         order_farm = data["order_farm"]
-        order_cow = data["farm_address"]
+        order_cow = data["order_cow"]
         order_customer = data["order_customer"]
         order_order_number = data["order_order_number"] 
         order_quantity = data["order_quantity"] 
@@ -249,7 +263,80 @@ def edit_customer_page(request,type,id):
         # add other fields too eg. pin_code , latitude , .. etc HINT : Check web/models.py
 
         # save changes
-        order.save()
+        customer.save()
         # redirect to the details page
         return redirect('customers_details_page')
     return render(request, 'admins/edit_customers_page.html', {'customer': customer})
+
+@login_required
+@user_passes_test(lambda user: user.groups.filter(name='Admin').exists())
+def edit_carrier_page(request,type,id):
+    carrier = Worker.objects.get(id=id)
+    if type == "delete":
+        carrier.delete()
+        return redirect('carriers_details_page')
+    if request.POST:
+        # retrieve post data
+        data = request.POST
+        # get farm_name data
+        carrier_user = data["carrier_user"]
+        carrier_farm = data["carrier_farm"]
+
+        # check if the data has change
+        if (carrier.user != carrier_user or carrier.farm != carrier_farm) :
+            # if data has change then change the data
+            carrier.user = carrier_user
+            carrier.farm = carrier_farm
+
+        # add other fields too eg. pin_code , latitude , .. etc HINT : Check web/models.py
+
+        # save changes
+        carrier.save()
+        # redirect to the details page
+        return redirect('carriers_details_page')
+    return render(request, 'admins/edit_carriers_page.html', {'carrier': carrier})
+
+@login_required
+@user_passes_test(lambda user: user.groups.filter(name='Admin').exists())
+def edit_transaction_page(request,type,id):
+    transaction = Transaction.objects.get(id=id)
+    if type == "delete":
+        transaction.delete()
+        return redirect('transactions_details_page')
+    if request.POST:
+        # retrieve post data
+        data = request.POST
+        # get farm_name data
+        transaction_customer = data["transaction_customer"]
+        transaction_order = data["transaction_order"] 
+        transaction_amount = data["transaction_amount"]
+        transaction_payment_mode = data["transaction_payment_mode"] 
+        transaction_status = data["transaction_status"] 
+        transaction_bank_refnum = data["transaction_bank_refnum"] 
+        transaction_refund_amount = data["transaction_refund_amount"]
+        transaction_additional_charges = data["transaction_additional_charges"] 
+        transaction_payment_added_on = data["transaction_payment_added_on"] 
+        transaction_payment_id = data["transaction_payment_id"]
+
+        # check if the data has change
+        if (transaction.customer != transaction_customer or ctransaction.order != transaction_order) :
+            # if data has change then change the data
+           transaction.customer = transaction_customer
+           transaction.order = transaction_order
+           transaction.amount = transaction_amount
+           transaction.payment_mode = transaction_payment_mode
+           transaction.status = transaction_status
+           transaction.bank_refnum = transaction_bank_refnum
+           transaction.refund_amount = transaction_refund_amount
+           transaction.additional_charges = transaction_additional_charges
+           transaction.payment_added_on = transaction_payment_added_on
+           transaction.payment_id = transaction_payment_id
+
+        # add other fields too eg. pin_code , latitude , .. etc HINT : Check web/models.py
+
+        # save changes
+        transaction.save()
+        # redirect to the details page
+        return redirect('transactions_details_page')
+    return render(request, 'admins/edit_transaction_page.html', {'transaction': transaction})
+ 

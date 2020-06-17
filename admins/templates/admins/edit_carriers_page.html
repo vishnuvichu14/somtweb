@@ -1,0 +1,24 @@
+{% extends 'admins/base.html' %}
+{% block content %}
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container">
+                <h2>Edit Carrier</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" name="carrier_user" placeholder="Carrier user" value="{{ carrier.user }}"
+                               class="form-control">
+                        <input type="text" name="carrier_farm" placeholder="Carrier Farm" value="{{ carrier.farm }}"
+                               class="form-control">
+                        <span class="input-group-append">
+                               <button type="submit" class="btn btn-tool btn-sm">
+                                    <i style="color: yellow;" class="fas fa-save"></i>
+                                </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

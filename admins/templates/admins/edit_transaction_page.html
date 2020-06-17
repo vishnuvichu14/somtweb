@@ -1,0 +1,40 @@
+{% extends 'admins/base.html' %}
+{% block content %}
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container">
+                <h2>Edit Carrier</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" name="transaction_customer" placeholder="Transaction customer" value="{{ transaction.customer }}"
+                               class="form-control">
+                        <input type="text" name="transaction_order" placeholder="Order" value="{{ transaction.order }}"
+                               class="form-control">
+                               <input type="text" name="transaction_amount" placeholder="Amount" value="{{ transaction.amount }}"
+                               class="form-control">
+                        <input type="text" name="transaction_payment_mode" placeholder="Payment mode" value="{{ transaction.payment_mode }}"
+                               class="form-control">
+                               <input type="text" name="transaction_status" placeholder="Status" value="{{ transaction.status }}"
+                               class="form-control">
+                        <input type="text" name="transaction_bank_refnum" placeholder="Bank reference number" value="{{ transaction.bank_refnum }}"
+                               class="form-control">
+                               <input type="text" name="transaction_refund_amount" placeholder="Refund Amount" value="{{ transaction.refund_amount }}"
+                               class="form-control">
+                        <input type="text" name="transaction_additional_charges" placeholder="Additional Charges" value="{{ transaction.additional_charges }}"
+                               class="form-control">
+                               <input type="text" name="transaction_payment_added_on" placeholder="Payment added on" value="{{ transaction.payment_added_oncarrier.user }}"
+                               class="form-control">
+                        <input type="text" name="transaction_payment_id" placeholder="Payment id" value="{{ transaction.payment_id }}"
+                               class="form-control">
+                        <span class="input-group-append">
+                               <button type="submit" class="btn btn-tool btn-sm">
+                                    <i style="color: yellow;" class="fas fa-save"></i>
+                                </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

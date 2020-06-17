@@ -85,7 +85,6 @@ class Delivery(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="delivery_order")
     customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer')
     worker = models.ForeignKey(User, on_delete=models.CASCADE, related_query_name='worker')
-
     quantity = models.CharField(max_length=12, null=True)
     status = models.IntegerField(choices=STATUS_CHOICE, default=0)
     message = models.CharField(max_length=1024)

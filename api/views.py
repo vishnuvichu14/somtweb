@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
 
 from api.forms import UserRegistrationForm
 from web.models import Profile
@@ -45,3 +46,32 @@ class ApiRegistration(APIView):
                 {'status': 'success', 'message': 'User registered successfully!', "token": token.key})
         else:
             return Response({'status': 'error', 'errors': user_registration_form.errors})
+
+
+class ApiUpdateProfile(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        data = request.POST
+        email = data['email']
+        token = data['token']
+        phone = data['phone']
+        msg = ""
+        status = "success"
+        try:
+            user = User.objects.get(email=email)
+            profile = Profile.objects.create(
+                phone=phone
+            )
+        except Exception as e:
+            status = "error"
+            msg = "Error while updating Profile " + e
+        return Response({"status": status, "message": msg})
+
+    def get(self, request):
+        try:
+            profile = Profile.objects.get(user_id=request.user.id)
+            return Response({"status": "success", "profile": {"phone": profile.phone}})
+        except Exception as e:
+            return Response({"status": "error", "message": "profile does not exits! " + e})
